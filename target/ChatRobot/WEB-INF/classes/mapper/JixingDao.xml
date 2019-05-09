@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.JixingDao">
+
+
+    <sql id="batch"> 7 </sql>
+    <select id="selectAllJixing" resultType="Jixing">
+        SELECT * FROM sales
+    </select>
+    <delete id="deleteJixing" parameterType="int">
+        delete from sales where id = #{id}
+    </delete>
+    <select id="selectBatchJixing" resultType="Jixing" parameterType="int">
+        select * from sales limit #{ord},<include refid = "batch"/>
+    </select>
+    <select id="countTuple" resultType="int">
+        select count(*) from sales
+    </select>
+    <update id="update" parameterType="Jixing">
+        update sales set imgUrl = #{imgUrl},descri = #{descri},price = #{price} where id = #{id}
+    </update>
+    <select id="search" parameterType="int" resultType="Jixing">
+        select * from sales where price regexp '^[0-9]{1,}$'
+    </select>
+</mapper>

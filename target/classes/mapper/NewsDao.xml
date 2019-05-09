@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.NewsDao">
+    <sql id="batch">7</sql>
+    <select id="selectNews" resultType="news" parameterType="int">
+        SELECT * FROM snews WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultType="news">
+        select * from snews
+    </select>
+    <select id="selectBatchNews" resultType="news" parameterType="int">
+        select * from snews limit #{ord},<include refid="batch"/>
+    </select>
+    <delete id="deleteNews" parameterType="int">
+        delete from snews where id = #{id}
+    </delete>
+    <select id="countNews" resultType="int">
+        select count(*) from snews
+    </select>
+    <update id="update" parameterType="news">
+        update snews set tag = #{tag},title = #{title},imgUrl = #{imgUrl},content = #{content},digest = #{digest} where id = #{id}
+    </update>
+    <select id="search" parameterType="string" resultType="news">
+        select * from snews where title like #{s}
+    </select>
+    <insert id="insert" parameterType="news">
+        insert into snews(tag,title,digest,content,imgUrl) values (#{tag},#{title},#{digest},#{content},#{imgUrl})
+    </insert>
+</mapper>

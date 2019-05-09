@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.VideoDao">
+    <sql id="batch">7</sql>
+    <select id="selectAll" resultType="Video">
+        select * from video
+    </select>
+    <select id="selectBatchVideo" resultType="Video" parameterType="int">
+        select * from video limit #{ord},<include refid="batch"/>
+    </select>
+    <delete id="deleteVideo" parameterType="int">
+        delete from video where vid = #{id}
+    </delete>
+    <select id="countVideo" resultType="int">
+        select count(*) from video
+    </select>
+    <update id="update" parameterType="Video">
+        update video set imgUrl = #{imgUrl},videoUrl = #{videoUrl},descri = #{descri} where vid = #{vid}
+    </update>
+    <select id="search" parameterType="string" resultType="Video">
+        select * from video where descri like #{s}
+    </select>
+    <insert id="add" parameterType="Video">
+        insert into video(imgUrl,videoUrl,descri) values (#{imgUrl},#{videoUrl},#{descri})
+    </insert>
+</mapper>

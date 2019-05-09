@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chatRobot.dao.NewsCommentDao">
+    <sql id = "batch">7</sql>
+    <select id="selectAll" resultType="NewsComment">
+        select * from NewsComment
+    </select>
+    <insert id="addComment" parameterType="NewsComment">
+        insert into NewsComment(id,userImg,userNickname,content,time) values(#{id},#{userImg},#{userNickname},#{content},#{time})
+    </insert>
+    <select id="selectAllById" resultType="NewsComment">
+        select * from NewsComment where id = #{id}
+    </select>
+    <delete id="deleteNewsComment" parameterType="int">
+        delete from NewsComment where cid = #{id}
+    </delete>
+    <select id="selectBatchNewsComment" resultType="NewsComment" parameterType="int">
+        select * from NewsComment limit #{ord},<include refid="batch" />
+    </select>
+    <select id="countComment" resultType="int">
+        select count(*) from NewsComment
+    </select>
+    <update id="update" parameterType="NewsComment">
+        update NewsComment set id = #{id},userImg = #{userImg},userNickname = #{userNickname},content = #{content},time = #{time} where cid = #{cid}
+    </update>
+</mapper>
